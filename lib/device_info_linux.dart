@@ -100,9 +100,9 @@ class MemInfo {
   final String hardwareCorrupted;
   final String anonHugePages;
   final String shmemHugePages;
-  final String shmemPmdPages;
+  final String shmemPmdMapped;
   final String fileHugePages;
-  final String filePmdPages;
+  final String filePmdMapped;
   final String hugePagesTotal;
   final String hugePagesFree;
   final String hugePagesRsvd;
@@ -153,9 +153,9 @@ class MemInfo {
     this.hardwareCorrupted,
     this.anonHugePages,
     this.shmemHugePages,
-    this.shmemPmdPages,
+    this.shmemPmdMapped,
     this.fileHugePages,
-    this.filePmdPages,
+    this.filePmdMapped,
     this.hugePagesTotal,
     this.hugePagesFree,
     this.hugePagesRsvd,
@@ -208,9 +208,9 @@ class MemInfo {
       hardwareCorrupted: map['HardwareCorrupted'],
       anonHugePages: map['AnonHugePages'],
       shmemHugePages: map['ShmemHugePages'],
-      shmemPmdPages: map['ShmemPmdMapped'],
+      shmemPmdMapped: map['ShmemPmdMapped'],
       fileHugePages: map['FileHugePages'],
-      filePmdPages: map['FilePmdMapped'],
+      filePmdMapped: map['FilePmdMapped'],
       hugePagesTotal: map['HugePages_Total'],
       hugePagesFree: map['HugePages_Free'],
       hugePagesRsvd: map['HugePages_Rsvd'],
