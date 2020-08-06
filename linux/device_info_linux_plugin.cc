@@ -46,10 +46,13 @@ static void device_info_linux_plugin_handle_method_call(
 
     const gchar *method = fl_method_call_get_name(method_call);
 
+    // linuxInfo method channel call from Flutter.
     if (strcmp(method, "linuxInfo") == 0)
     {
+        // Creating a new FlValue map.
         g_autoptr(FlValue) linuxDeviceInfo = fl_value_new_map();
 
+        // Code for getting memory information in linux using proc/meminfo file.
         g_autoptr(FlValue) linuxMemInfo = fl_value_new_map();
         string command = "cat /proc/meminfo", meminfo = "MemInfo";
         char buffer[256];
@@ -77,8 +80,10 @@ static void device_info_linux_plugin_handle_method_call(
             }
         }
         pclose(pipe);
+        // Setting a FlValue map in the value of another map.
         fl_value_set(linuxDeviceInfo, fl_value_new_string(meminfo.c_str()), linuxMemInfo);
 
+        // Code for getting host information using hostnamectl command.
         command = "hostnamectl";
         pipe = popen(command.c_str(), "r");
         while (!feof(pipe))
@@ -105,6 +110,7 @@ static void device_info_linux_plugin_handle_method_call(
         }
         pclose(pipe);
 
+        // Code for getting Cpu information in linux using lspci command.
         command = "lspci";
         string cpuInfo="CpuInfo";
         g_autoptr(FlValue) linuxCpuInfo = fl_value_new_map();
