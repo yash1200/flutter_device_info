@@ -140,6 +140,35 @@ static void device_info_linux_plugin_handle_method_call(
         }
         pclose(pipe);
 
+        command = "lspci";
+        string cpuInfo="CpuInfo";
+        g_autoptr(FlValue) linuxCpuInfo = fl_value_new_map();
+        pipe = popen(command.c_str(), "r");
+        while (!feof(pipe))
+        {
+            if (fgets(buffer, 128, pipe) != NULL)
+            {
+                string value = "", name = "";
+                bool flag = true;
+                for (int i = 7; i < strlen(buffer); i++)
+                {
+                    if (buffer[i] == ':') {
+                        flag = false;
+                        continue;
+                    }
+                    if (flag)
+                        name += buffer[i];
+                    if (!flag)
+                        value += buffer[i];
+                }
+                name = trim(name);
+                value = trim(value);
+                fl_value_set_string_take(linuxCpuInfo, name.c_str(), fl_value_new_string(value.c_str()));
+            }
+        }
+        pclose(pipe);
+        fl_value_set(linuxDeviceInfo, fl_value_new_string(cpuInfo.c_str()), linuxCpuInfo);
+
         response = FL_METHOD_RESPONSE(fl_method_success_response_new(linuxDeviceInfo));
     }
     else

@@ -28,9 +28,11 @@ class LinuxDeviceInfo {
   final String machineId;
   final String bootId;
   final MemInfo memInfo;
+  final CpuInfo cpuInfo;
 
   LinuxDeviceInfo({
     this.memInfo,
+    this.cpuInfo,
     this.architecture,
     this.hostname,
     this.kernel,
@@ -45,6 +47,7 @@ class LinuxDeviceInfo {
     print(map);
     return LinuxDeviceInfo(
       memInfo: MemInfo._fromMap(map['MemInfo']?.cast<String, dynamic>()),
+      cpuInfo: CpuInfo._fromMap(map['CpuInfo']?.cast<String, dynamic>()),
       hostname: map["Static hostname"].toString().trim(),
       os: map['Operating System'].toString().trim(),
       kernel: map['Kernel'].toString().trim(),
@@ -217,6 +220,62 @@ class MemInfo {
       directMap4K: map['DirectMap4k'],
       directMap2M: map['DirectMap2M'],
       directMap1G: map['DirectMap1G'],
+    );
+  }
+}
+
+class CpuInfo {
+  final String hostBridge;
+  final String pciBridge;
+  final String vgaCompatibleController;
+  final String signalProcessingController;
+  final String usbController;
+  final String ramMemory;
+  final String networkController;
+  final String communicationController;
+  final String sataController;
+  final String isaBridge;
+  final String audioDevice;
+  final String smBus;
+  final String serialBusController;
+  final String gpuController;
+  final String ethernetController;
+
+  CpuInfo({
+    this.hostBridge,
+    this.pciBridge,
+    this.vgaCompatibleController,
+    this.signalProcessingController,
+    this.usbController,
+    this.ramMemory,
+    this.networkController,
+    this.communicationController,
+    this.sataController,
+    this.isaBridge,
+    this.audioDevice,
+    this.smBus,
+    this.serialBusController,
+    this.gpuController,
+    this.ethernetController,
+  });
+
+  static CpuInfo _fromMap(Map<String, dynamic> map) {
+    return CpuInfo(
+      hostBridge: map["Host bridge"],
+      pciBridge: map["PCI bridge"],
+      vgaCompatibleController: map["VGA compatible controller"],
+      signalProcessingController: map["Signal processing controller"],
+      usbController: map["USB controller"],
+      ramMemory: map["RAM memory"],
+      networkController: map["Network controller"],
+      communicationController: map["Communication controller"],
+      sataController: map["SATA controller"],
+      isaBridge: map["ISA bridge"],
+      audioDevice: map["Audio device"],
+      smBus: map["SMBus"],
+      serialBusController: map["Serial bus controller [0c80]"],
+      gpuController: map["3D controller"],
+      ethernetController: map["Ethernet controller"],
     );
   }
 }
