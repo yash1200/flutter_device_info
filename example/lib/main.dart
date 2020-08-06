@@ -3,6 +3,7 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:device_info_linux/device_info_linux.dart';
+import 'package:device_info_linux/models/LinuxDeviceInfo.dart';
 
 void main() {
   runApp(MyApp());
