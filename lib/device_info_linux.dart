@@ -3,33 +3,23 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 
 class DeviceInfoLinux {
+  /// Channel used to communicate to native code.
   static const MethodChannel _channel =
       const MethodChannel('device_info_linux');
+
+  LinuxDeviceInfo _cachedLinuxDeviceInfo;
 
   static Future<String> get platformVersion async {
     final String version = await _channel.invokeMethod('getPlatformVersion');
     return version;
   }
 
-  static Future<LinuxDeviceInfo> get linuxInfo async {
-    final LinuxDeviceInfo linuxDeviceInfo = LinuxDeviceInfo._fromMap(
-        await _channel.invokeMapMethod<String, dynamic>('linuxInfo'));
-    return linuxDeviceInfo;
-  }
+  Future<LinuxDeviceInfo> get linuxInfo async =>
+      _cachedLinuxDeviceInfo ??= LinuxDeviceInfo._fromMap(
+          await _channel.invokeMapMethod<String, dynamic>('linuxInfo'));
 }
 
 class LinuxDeviceInfo {
-  final String hostname;
-  final String os;
-  final String kernel;
-  final String architecture;
-  final String iconName;
-  final String chassis;
-  final String machineId;
-  final String bootId;
-  final MemInfo memInfo;
-  final CpuInfo cpuInfo;
-
   LinuxDeviceInfo({
     this.memInfo,
     this.cpuInfo,
@@ -42,6 +32,36 @@ class LinuxDeviceInfo {
     this.machineId,
     this.bootId,
   });
+
+  /// The current system hostname.
+  final String hostname;
+
+  /// The os of the system.
+  final String os;
+
+  /// The kernel version of the system.
+  final String kernel;
+
+  /// The architecture of the system.
+  final String architecture;
+
+  //// The name used by graphical applications to visualize the host.
+  final String iconName;
+
+  /// The chassis of the system.
+  final String chassis;
+
+  /// The machine-id of the system.
+  final String machineId;
+
+  /// The boot-id of the system.
+  final String bootId;
+
+  /// The memory information of the system using ` proc/meminfo `
+  final MemInfo memInfo;
+
+  /// The CPU configuration of the system using ` lspci `
+  final CpuInfo cpuInfo;
 
   static LinuxDeviceInfo _fromMap(Map<String, dynamic> map) {
     print(map);
@@ -61,58 +81,6 @@ class LinuxDeviceInfo {
 }
 
 class MemInfo {
-  final String memTotal;
-  final String memFree;
-  final String memAvailable;
-  final String buffers;
-  final String cached;
-  final String swapCached;
-  final String active;
-  final String inactive;
-  final String activeAnon;
-  final String inactiveAnon;
-  final String activeFile;
-  final String inactiveFile;
-  final String unevictable;
-  final String mLocked;
-  final String swapTotal;
-  final String swapFree;
-  final String dirty;
-  final String writeBack;
-  final String anonPages;
-  final String mapped;
-  final String shmem;
-  final String kReclaimable;
-  final String sLab;
-  final String sReclaimable;
-  final String sUnreclaim;
-  final String kernelStack;
-  final String pageTables;
-  final String nfsUnstable;
-  final String bounce;
-  final String writeBackTmp;
-  final String commitLimit;
-  final String committedAs;
-  final String vMallocTotal;
-  final String vMallocUsed;
-  final String vMallocChunk;
-  final String perCpu;
-  final String hardwareCorrupted;
-  final String anonHugePages;
-  final String shmemHugePages;
-  final String shmemPmdMapped;
-  final String fileHugePages;
-  final String filePmdMapped;
-  final String hugePagesTotal;
-  final String hugePagesFree;
-  final String hugePagesRsvd;
-  final String hugePagesSurp;
-  final String hugePagesSize;
-  final String hugeTlb;
-  final String directMap4K;
-  final String directMap2M;
-  final String directMap1G;
-
   MemInfo({
     this.memTotal,
     this.memFree,
@@ -166,6 +134,65 @@ class MemInfo {
     this.directMap2M,
     this.directMap1G,
   });
+
+  /// Total ram of the system
+  final String memTotal;
+
+  /// Free ram in the system.
+  final String memFree;
+
+  /// Available ram in the system.
+  final String memAvailable;
+
+  ///
+  final String buffers;
+  final String cached;
+  final String swapCached;
+  final String active;
+  final String inactive;
+  final String activeAnon;
+  final String inactiveAnon;
+  final String activeFile;
+  final String inactiveFile;
+  final String unevictable;
+  final String mLocked;
+  final String swapTotal;
+  final String swapFree;
+  final String dirty;
+  final String writeBack;
+  final String anonPages;
+  final String mapped;
+  final String shmem;
+  final String kReclaimable;
+  final String sLab;
+  final String sReclaimable;
+  final String sUnreclaim;
+  final String kernelStack;
+  final String pageTables;
+  final String nfsUnstable;
+  final String bounce;
+  final String writeBackTmp;
+  final String commitLimit;
+  final String committedAs;
+  final String vMallocTotal;
+  final String vMallocUsed;
+  final String vMallocChunk;
+  final String perCpu;
+  final String hardwareCorrupted;
+  final String anonHugePages;
+  final String shmemHugePages;
+  final String shmemPmdMapped;
+  final String fileHugePages;
+  final String filePmdMapped;
+  final String hugePagesTotal;
+  final String hugePagesFree;
+  final String hugePagesRsvd;
+  final String hugePagesSurp;
+  final String hugePagesSize;
+  final String hugeTlb;
+  final String directMap4K;
+  final String directMap2M;
+  final String directMap1G;
 
   static MemInfo _fromMap(Map<String, dynamic> map) {
     return MemInfo(
@@ -225,22 +252,6 @@ class MemInfo {
 }
 
 class CpuInfo {
-  final String hostBridge;
-  final String pciBridge;
-  final String vgaCompatibleController;
-  final String signalProcessingController;
-  final String usbController;
-  final String ramMemory;
-  final String networkController;
-  final String communicationController;
-  final String sataController;
-  final String isaBridge;
-  final String audioDevice;
-  final String smBus;
-  final String serialBusController;
-  final String gpuController;
-  final String ethernetController;
-
   CpuInfo({
     this.hostBridge,
     this.pciBridge,
@@ -258,6 +269,22 @@ class CpuInfo {
     this.gpuController,
     this.ethernetController,
   });
+
+  final String hostBridge;
+  final String pciBridge;
+  final String vgaCompatibleController;
+  final String signalProcessingController;
+  final String usbController;
+  final String ramMemory;
+  final String networkController;
+  final String communicationController;
+  final String sataController;
+  final String isaBridge;
+  final String audioDevice;
+  final String smBus;
+  final String serialBusController;
+  final String gpuController;
+  final String ethernetController;
 
   static CpuInfo _fromMap(Map<String, dynamic> map) {
     return CpuInfo(

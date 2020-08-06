@@ -27,7 +27,8 @@ class _MyAppState extends State<MyApp> {
     Map<String, dynamic> _deviceDataLocal = <String, dynamic>{};
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
-      _deviceDataLocal = _readLinuxDeviceInfo(await DeviceInfoLinux.linuxInfo);
+      _deviceDataLocal =
+          _readLinuxDeviceInfo(await DeviceInfoLinux().linuxInfo);
     } on PlatformException {
       _deviceDataLocal = <String, dynamic>{
         'Error:': 'Failed to get platform version.'
@@ -57,7 +58,8 @@ class _MyAppState extends State<MyApp> {
       "cpuInfo.hostBridge": build.cpuInfo.hostBridge,
       "cpuInfo.pciBridge": build.cpuInfo.pciBridge,
       "cpuInfo.vgaCompatibleController": build.cpuInfo.vgaCompatibleController,
-      "cpuInfo.signalProcessingController": build.cpuInfo.signalProcessingController,
+      "cpuInfo.signalProcessingController":
+          build.cpuInfo.signalProcessingController,
       "cpuInfo.usbController": build.cpuInfo.usbController,
       "cpuInfo.ramMemory": build.cpuInfo.ramMemory,
       "cpuInfo.networkController": build.cpuInfo.networkController,
