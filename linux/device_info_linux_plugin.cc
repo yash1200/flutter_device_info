@@ -13,95 +13,175 @@ using namespace std;
 
 struct _DeviceInfoLinuxPlugin
 {
-  GObject parent_instance;
+    GObject parent_instance;
 };
 
 G_DEFINE_TYPE(DeviceInfoLinuxPlugin, device_info_linux_plugin, g_object_get_type())
+
+// static FlValue* getMemInfo() {
+//     g_autoptr(FlValue) linuxMemInfo = fl_value_new_map();
+//     string command = "cat /proc/meminfo";
+//     char buffer[256];
+//     FILE *pipe = popen(command.c_str(), "r");
+//     while (!feof(pipe))
+//     {
+//         if (fgets(buffer, 128, pipe) != NULL)
+//         {
+//             string value = "", name = "";
+//             bool flag = true;
+//             for (int i = 0; i < strlen(buffer); i++)
+//             {
+//                 if (buffer[i] == ':')
+//                     flag = false;
+//                 if (flag)
+//                     name += buffer[i];
+//                 if (!flag && buffer[i] >= '0' && buffer[i] <= '9')
+//                     value += buffer[i];
+//             }
+//             fl_value_set_string_take(linuxMemInfo, name.c_str(), fl_value_new_string(value.c_str()));
+//         }
+//     }
+//     pclose(pipe);
+//     return linuxMemInfo;
+// }
+
+const string WHITESPACE = " \n\r\t\f\v";
+
+string ltrim(const string& s)
+{
+    size_t start = s.find_first_not_of(WHITESPACE);
+    return (start == string::npos) ? "" : s.substr(start);
+}
+
+string rtrim(const string& s)
+{
+    size_t end = s.find_last_not_of(WHITESPACE);
+    return (end == string::npos) ? "" : s.substr(0, end + 1);
+}
+
+string trim(const string& s)
+{
+    return rtrim(ltrim(s));
+}
 
 // Called when a method call is received from Flutter.
 static void device_info_linux_plugin_handle_method_call(
     DeviceInfoLinuxPlugin *self,
     FlMethodCall *method_call)
 {
-  g_autoptr(FlMethodResponse) response = nullptr;
+    g_autoptr(FlMethodResponse) response = nullptr;
 
-  const gchar *method = fl_method_call_get_name(method_call);
+    const gchar *method = fl_method_call_get_name(method_call);
 
-  if (strcmp(method, "getPlatformVersion") == 0)
-  {
-    struct utsname uname_data = {};
-    uname(&uname_data);
-    g_autofree gchar *version = g_strdup_printf("Linux %s", uname_data.version);
-    g_autoptr(FlValue) result = fl_value_new_string(version);
-    response = FL_METHOD_RESPONSE(fl_method_success_response_new(result));
-  }
-  else if (strcmp(method, "linuxInfo") == 0)
-  {
-    g_autoptr(FlValue) linuxDeviceInfo = fl_value_new_map();
-    string command = "cat /proc/meminfo";
-    char buffer[256];
-    FILE *pipe = popen(command.c_str(), "r");
-    while (!feof(pipe))
+    if (strcmp(method, "getPlatformVersion") == 0)
     {
-      if (fgets(buffer, 128, pipe) != NULL)
-      {
-        string value = "", name = "";
-        bool flag = true;
-        for (int i = 0; i < strlen(buffer); i++)
-        {
-          if (buffer[i] == ':')
-            flag = false;
-          if (flag)
-            name += buffer[i];
-          if (!flag && buffer[i] >= '0' && buffer[i] <= '9')
-            value += buffer[i];
-        }
-        fl_value_set_string_take(linuxDeviceInfo, name.c_str(), fl_value_new_string(value.c_str()));
-      }
+        struct utsname uname_data ={};
+        uname(&uname_data);
+        g_autofree gchar *version = g_strdup_printf("Linux %s", uname_data.version);
+        g_autoptr(FlValue) result = fl_value_new_string(version);
+        response = FL_METHOD_RESPONSE(fl_method_success_response_new(result));
     }
-    pclose(pipe);
-    response = FL_METHOD_RESPONSE(fl_method_success_response_new(linuxDeviceInfo));
-  }
-  else
-  {
-    response = FL_METHOD_RESPONSE(fl_method_not_implemented_response_new());
-  }
+    else if (strcmp(method, "linuxInfo") == 0)
+    {
+        g_autoptr(FlValue) linuxDeviceInfo = fl_value_new_map();
 
-  fl_method_call_respond(method_call, response, nullptr);
+        g_autoptr(FlValue) linuxMemInfo = fl_value_new_map();
+        string command = "cat /proc/meminfo", meminfo = "MemInfo";
+        char buffer[256];
+        FILE* pipe = popen(command.c_str(), "r");
+        while (!feof(pipe))
+        {
+            if (fgets(buffer, 128, pipe) != NULL)
+            {
+                string value = "", name = "";
+                bool flag = true;
+                for (int i = 0; i < strlen(buffer); i++)
+                {
+                    if (buffer[i] == ':') {
+                        flag = false;
+                        continue;
+                    }
+                    if (flag)
+                        name += buffer[i];
+                    if (!flag)
+                        value += buffer[i];
+                }
+                name = trim(name);
+                value = trim(value);
+                fl_value_set_string_take(linuxMemInfo, name.c_str(), fl_value_new_string(value.c_str()));
+            }
+        }
+        pclose(pipe);
+        fl_value_set(linuxDeviceInfo, fl_value_new_string(meminfo.c_str()), linuxMemInfo);
+
+        command = "hostnamectl";
+        pipe = popen(command.c_str(), "r");
+        while (!feof(pipe))
+        {
+            if (fgets(buffer, 128, pipe) != NULL)
+            {
+                string value = "", name = "";
+                bool flag = true;
+                for (int i = 0; i < strlen(buffer); i++)
+                {
+                    if (buffer[i] == ':') {
+                        flag = false;
+                        continue;
+                    }
+                    if (flag)
+                        name += buffer[i];
+                    if (!flag)
+                        value += buffer[i];
+                }
+                name = trim(name);
+                value = trim(value);
+                fl_value_set_string_take(linuxDeviceInfo, name.c_str(), fl_value_new_string(value.c_str()));
+            }
+        }
+        pclose(pipe);
+
+        response = FL_METHOD_RESPONSE(fl_method_success_response_new(linuxDeviceInfo));
+    }
+    else
+    {
+        response = FL_METHOD_RESPONSE(fl_method_not_implemented_response_new());
+    }
+
+    fl_method_call_respond(method_call, response, nullptr);
 }
 
 static void device_info_linux_plugin_dispose(GObject *object)
 {
-  G_OBJECT_CLASS(device_info_linux_plugin_parent_class)->dispose(object);
+    G_OBJECT_CLASS(device_info_linux_plugin_parent_class)->dispose(object);
 }
 
 static void device_info_linux_plugin_class_init(DeviceInfoLinuxPluginClass *klass)
 {
-  G_OBJECT_CLASS(klass)->dispose = device_info_linux_plugin_dispose;
+    G_OBJECT_CLASS(klass)->dispose = device_info_linux_plugin_dispose;
 }
 
 static void device_info_linux_plugin_init(DeviceInfoLinuxPlugin *self) {}
 
 static void method_call_cb(FlMethodChannel *channel, FlMethodCall *method_call,
-                           gpointer user_data)
+    gpointer user_data)
 {
-  DeviceInfoLinuxPlugin *plugin = DEVICE_INFO_LINUX_PLUGIN(user_data);
-  device_info_linux_plugin_handle_method_call(plugin, method_call);
+    DeviceInfoLinuxPlugin *plugin = DEVICE_INFO_LINUX_PLUGIN(user_data);
+    device_info_linux_plugin_handle_method_call(plugin, method_call);
 }
 
 void device_info_linux_plugin_register_with_registrar(FlPluginRegistrar *registrar)
 {
-  DeviceInfoLinuxPlugin *plugin = DEVICE_INFO_LINUX_PLUGIN(
-      g_object_new(device_info_linux_plugin_get_type(), nullptr));
+    DeviceInfoLinuxPlugin *plugin = DEVICE_INFO_LINUX_PLUGIN(
+        g_object_new(device_info_linux_plugin_get_type(), nullptr));
 
-  g_autoptr(FlStandardMethodCodec) codec = fl_standard_method_codec_new();
-  g_autoptr(FlMethodChannel) channel =
-      fl_method_channel_new(fl_plugin_registrar_get_messenger(registrar),
-                            "device_info_linux",
-                            FL_METHOD_CODEC(codec));
-  fl_method_channel_set_method_call_handler(channel, method_call_cb,
-                                            g_object_ref(plugin),
-                                            g_object_unref);
+    g_autoptr(FlStandardMethodCodec) codec = fl_standard_method_codec_new();
+    g_autoptr(FlMethodChannel) channel =
+        fl_method_channel_new(fl_plugin_registrar_get_messenger(registrar),
+            "device_info_linux",
+            FL_METHOD_CODEC(codec));
+    fl_method_channel_set_method_call_handler(channel, method_call_cb,
+        g_object_ref(plugin),
+        g_object_unref);
 
-  g_object_unref(plugin);
+    g_object_unref(plugin);
 }

@@ -19,6 +19,45 @@ class DeviceInfoLinux {
 }
 
 class LinuxDeviceInfo {
+  final String hostname;
+  final String os;
+  final String kernel;
+  final String architecture;
+  final String iconName;
+  final String chassis;
+  final String machineId;
+  final String bootId;
+  final MemInfo memInfo;
+
+  LinuxDeviceInfo({
+    this.memInfo,
+    this.architecture,
+    this.hostname,
+    this.kernel,
+    this.os,
+    this.iconName,
+    this.chassis,
+    this.machineId,
+    this.bootId,
+  });
+
+  static LinuxDeviceInfo _fromMap(Map<String, dynamic> map) {
+    print(map);
+    return LinuxDeviceInfo(
+      memInfo: MemInfo._fromMap(map['MemInfo']?.cast<String, dynamic>()),
+      hostname: map["Static hostname"].toString().trim(),
+      os: map['Operating System'].toString().trim(),
+      kernel: map['Kernel'].toString().trim(),
+      architecture: map['Architecture'].toString().trim(),
+      iconName: map['Icon name'].toString().trim(),
+      chassis: map['Chassis'].toString().trim(),
+      machineId: map['Machine ID'].toString().trim(),
+      bootId: map['Boot ID'].toString().trim(),
+    );
+  }
+}
+
+class MemInfo {
   final String memTotal;
   final String memFree;
   final String memAvailable;
@@ -71,7 +110,7 @@ class LinuxDeviceInfo {
   final String directMap2M;
   final String directMap1G;
 
-  LinuxDeviceInfo({
+  MemInfo({
     this.memTotal,
     this.memFree,
     this.memAvailable,
@@ -125,8 +164,8 @@ class LinuxDeviceInfo {
     this.directMap1G,
   });
 
-  static LinuxDeviceInfo _fromMap(Map<String, dynamic> map) {
-    return LinuxDeviceInfo(
+  static MemInfo _fromMap(Map<String, dynamic> map) {
+    return MemInfo(
       memTotal: map["MemTotal"],
       memFree: map['MemFree'],
       memAvailable: map['MemAvailable'],
