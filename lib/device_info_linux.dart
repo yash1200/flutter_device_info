@@ -12,6 +12,9 @@ class DeviceInfoLinux {
   /// This information does not change from call to call. Cache it.
   LinuxDeviceInfo _cachedLinuxDeviceInfo;
 
+  /// Derived from linux commands like ` proc/meminfo1
+  /// ` lspci `
+  /// ` hostnamectl `
   Future<LinuxDeviceInfo> get linuxInfo async =>
       _cachedLinuxDeviceInfo ??= LinuxDeviceInfo.fromMap(
           await _channel.invokeMapMethod<String, dynamic>('linuxInfo'));

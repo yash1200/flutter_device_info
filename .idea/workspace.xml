@@ -4,9 +4,7 @@
     <list default="true" id="86e97c30-f078-4d97-aa0e-6abd814c3766" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/linux/flutter/ephemeral/.plugin_symlinks/device_info_linux/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/example/linux/flutter/ephemeral/.plugin_symlinks/device_info_linux/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/linux/flutter/ephemeral/.plugin_symlinks/device_info_linux/lib/device_info_linux.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/linux/flutter/ephemeral/.plugin_symlinks/device_info_linux/lib/device_info_linux.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/linux/flutter/ephemeral/.plugin_symlinks/device_info_linux/lib/models/LinuxDeviceInfo.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/linux/flutter/ephemeral/.plugin_symlinks/device_info_linux/lib/models/LinuxDeviceInfo.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/device_info_linux.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/device_info_linux.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/MemInfo.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/MemInfo.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
