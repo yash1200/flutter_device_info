@@ -5,15 +5,12 @@ import 'package:flutter/services.dart';
 import 'models/LinuxDeviceInfo.dart';
 
 class DeviceInfoLinux {
+  /// Channel used to communicate to native code.
   static const MethodChannel _channel =
       const MethodChannel('device_info_linux');
 
+  /// This information does not change from call to call. Cache it.
   LinuxDeviceInfo _cachedLinuxDeviceInfo;
-
-  static Future<String> get platformVersion async {
-    final String version = await _channel.invokeMethod('getPlatformVersion');
-    return version;
-  }
 
   Future<LinuxDeviceInfo> get linuxInfo async =>
       _cachedLinuxDeviceInfo ??= LinuxDeviceInfo.fromMap(

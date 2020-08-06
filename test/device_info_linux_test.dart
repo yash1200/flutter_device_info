@@ -18,6 +18,6 @@ void main() {
   });
 
   test('getPlatformVersion', () async {
-    expect(await DeviceInfoLinux.platformVersion, '42');
+    expect(await DeviceInfoLinux().linuxInfo, '42');
   });
 }

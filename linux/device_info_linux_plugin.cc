@@ -18,33 +18,6 @@ struct _DeviceInfoLinuxPlugin
 
 G_DEFINE_TYPE(DeviceInfoLinuxPlugin, device_info_linux_plugin, g_object_get_type())
 
-// static FlValue* getMemInfo() {
-//     g_autoptr(FlValue) linuxMemInfo = fl_value_new_map();
-//     string command = "cat /proc/meminfo";
-//     char buffer[256];
-//     FILE *pipe = popen(command.c_str(), "r");
-//     while (!feof(pipe))
-//     {
-//         if (fgets(buffer, 128, pipe) != NULL)
-//         {
-//             string value = "", name = "";
-//             bool flag = true;
-//             for (int i = 0; i < strlen(buffer); i++)
-//             {
-//                 if (buffer[i] == ':')
-//                     flag = false;
-//                 if (flag)
-//                     name += buffer[i];
-//                 if (!flag && buffer[i] >= '0' && buffer[i] <= '9')
-//                     value += buffer[i];
-//             }
-//             fl_value_set_string_take(linuxMemInfo, name.c_str(), fl_value_new_string(value.c_str()));
-//         }
-//     }
-//     pclose(pipe);
-//     return linuxMemInfo;
-// }
-
 const string WHITESPACE = " \n\r\t\f\v";
 
 string ltrim(const string& s)
@@ -73,15 +46,7 @@ static void device_info_linux_plugin_handle_method_call(
 
     const gchar *method = fl_method_call_get_name(method_call);
 
-    if (strcmp(method, "getPlatformVersion") == 0)
-    {
-        struct utsname uname_data ={};
-        uname(&uname_data);
-        g_autofree gchar *version = g_strdup_printf("Linux %s", uname_data.version);
-        g_autoptr(FlValue) result = fl_value_new_string(version);
-        response = FL_METHOD_RESPONSE(fl_method_success_response_new(result));
-    }
-    else if (strcmp(method, "linuxInfo") == 0)
+    if (strcmp(method, "linuxInfo") == 0)
     {
         g_autoptr(FlValue) linuxDeviceInfo = fl_value_new_map();
 
