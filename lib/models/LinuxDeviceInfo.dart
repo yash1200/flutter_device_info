@@ -48,7 +48,6 @@ class LinuxDeviceInfo {
 
   /// Deserializes from the message received from [_Channel].
   static LinuxDeviceInfo fromMap(Map<String, dynamic> map) {
-    print(map);
     return LinuxDeviceInfo(
       memInfo: MemInfo.fromMap(map['MemInfo']?.cast<String, dynamic>()),
       cpuInfo: CpuInfo.fromMap(map['CpuInfo']?.cast<String, dynamic>()),

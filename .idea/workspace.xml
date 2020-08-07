@@ -2,12 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="86e97c30-f078-4d97-aa0e-6abd814c3766" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/linux/flutter/ephemeral/.plugin_symlinks/device_info_linux/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/example/linux/flutter/ephemeral/.plugin_symlinks/device_info_linux/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/linux/flutter/ephemeral/.plugin_symlinks/device_info_linux/lib/device_info_linux.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/linux/flutter/ephemeral/.plugin_symlinks/device_info_linux/lib/device_info_linux.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/example/pubspec.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/device_info_linux.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/device_info_linux.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vscode/c_cpp_properties.json" beforeDir="false" afterPath="$PROJECT_DIR$/.vscode/c_cpp_properties.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/.vscode/settings.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,7 +36,7 @@
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="dart.analysis.tool.window.force.activate" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../flutter_device_info" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
@@ -87,10 +85,10 @@
       <screen x="0" y="0" width="1920" height="1043" />
     </state>
     <state x="549" y="30" width="815" height="985" key="CommitChangelistDialog2/0.0.1920.1043@0.0.1920.1043" timestamp="1596742545472" />
-    <state x="743" y="280" width="428" height="484" key="FileChooserDialogImpl" timestamp="1596780875980">
+    <state x="743" y="280" width="428" height="484" key="FileChooserDialogImpl" timestamp="1596797436822">
       <screen x="0" y="0" width="1920" height="1043" />
     </state>
-    <state x="743" y="280" width="428" height="484" key="FileChooserDialogImpl/0.0.1920.1043@0.0.1920.1043" timestamp="1596780875980" />
+    <state x="743" y="280" width="428" height="484" key="FileChooserDialogImpl/0.0.1920.1043@0.0.1920.1043" timestamp="1596797436822" />
     <state x="456" y="157" key="SettingsEditor" timestamp="1596696661398">
       <screen x="0" y="0" width="1920" height="1043" />
     </state>
@@ -99,9 +97,9 @@
       <screen x="0" y="0" width="1920" height="1043" />
     </state>
     <state x="555" y="254" width="804" height="536" key="Vcs.Push.Dialog.v2/0.0.1920.1043@0.0.1920.1043" timestamp="1596742700169" />
-    <state x="622" y="350" key="com.intellij.ide.util.TipDialog" timestamp="1596779007699">
+    <state x="622" y="350" key="com.intellij.ide.util.TipDialog" timestamp="1596797411409">
       <screen x="0" y="0" width="1920" height="1043" />
     </state>
-    <state x="622" y="350" key="com.intellij.ide.util.TipDialog/0.0.1920.1043@0.0.1920.1043" timestamp="1596779007699" />
+    <state x="622" y="350" key="com.intellij.ide.util.TipDialog/0.0.1920.1043@0.0.1920.1043" timestamp="1596797411409" />
   </component>
 </project>

@@ -2,5 +2,6 @@
     "files.associations": {
         "string": "cpp",
         "functional": "cpp"
-    }
+    },
+    "cmake.sourceDirectory": "${workspaceFolder}/linux"
 }
