@@ -40,7 +40,7 @@ class LinuxDeviceInfo {
   /// The boot-id of the system.
   final String bootId;
 
-  /// The memory information of the system using ` proc/meminfo `
+  /// The memory information of the system using ` /proc/meminfo `
   final MemInfo memInfo;
 
   /// The CPU configuration of the system using ` lspci `
