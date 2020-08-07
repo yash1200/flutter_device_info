@@ -12,9 +12,7 @@ class FlutterDeviceInfo {
   /// This information does not change from call to call. Cache it.
   LinuxDeviceInfo _cachedLinuxDeviceInfo;
 
-  /// Derived from linux commands like ` proc/meminfo `
-  /// ` lspci `
-  /// ` hostnamectl `
+  /// Parsed information from /proc/meminfo, lspci and hostnamectl
   Future<LinuxDeviceInfo> get linuxInfo async =>
       _cachedLinuxDeviceInfo ??= LinuxDeviceInfo.fromMap(
           await _channel.invokeMapMethod<String, dynamic>('linuxInfo'));
