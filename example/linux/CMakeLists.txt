@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.10)
 project(runner LANGUAGES CXX)
 
-set(BINARY_NAME "device_info_linux_example")
-set(APPLICATION_ID "com.example.device_info_linux")
+set(BINARY_NAME "flutter_device_info_example")
+set(APPLICATION_ID "com.example.flutter_device_info")
 
 cmake_policy(SET CMP0063 NEW)
 

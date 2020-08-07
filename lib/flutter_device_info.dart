@@ -4,10 +4,10 @@ import 'package:flutter/services.dart';
 
 import 'models/LinuxDeviceInfo.dart';
 
-class DeviceInfoLinux {
+class FlutterDeviceInfo {
   /// Channel used to communicate to native code.
   static const MethodChannel _channel =
-      const MethodChannel('device_info_linux');
+      const MethodChannel('flutter_device_info');
 
   /// This information does not change from call to call. Cache it.
   LinuxDeviceInfo _cachedLinuxDeviceInfo;

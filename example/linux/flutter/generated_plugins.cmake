@@ -3,7 +3,7 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
-  device_info_linux
+  flutter_device_info
 )
 
 set(PLUGIN_BUNDLED_LIBRARIES)

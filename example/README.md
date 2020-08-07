@@ -1,6 +1,6 @@
-# device_info_linux_example
+# flutter_device_info_example
 
-Demonstrates how to use the device_info_linux plugin.
+Demonstrates how to use the flutter_device_info plugin.
 
 ## Getting Started
 

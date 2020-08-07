@@ -1,4 +1,4 @@
-name: device_info_linux
+name: flutter_device_info
 description: A new flutter plugin project.
 version: 0.0.1
 author:
@@ -28,7 +28,7 @@ flutter:
   plugin:
     platforms:
       linux:
-        pluginClass: DeviceInfoLinuxPlugin
+        pluginClass: FlutterDeviceInfoPlugin
 
   # To add assets to your plugin package, add an assets section, like this:
   # assets:

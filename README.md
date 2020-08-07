@@ -1,4 +1,4 @@
-# device_info_linux
+# flutter_device_info
 
 A new flutter plugin project.
 

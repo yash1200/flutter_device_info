@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:flutter/services.dart';
-import 'package:device_info_linux/device_info_linux.dart';
-import 'package:device_info_linux/models/LinuxDeviceInfo.dart';
+import 'package:flutter_device_info/flutter_device_info.dart';
+import 'package:flutter_device_info/models/LinuxDeviceInfo.dart';
 
 void main() {
   runApp(MyApp());
@@ -29,7 +29,7 @@ class _MyAppState extends State<MyApp> {
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
       _deviceDataLocal =
-          _readLinuxDeviceInfo(await DeviceInfoLinux().linuxInfo);
+          _readLinuxDeviceInfo(await FlutterDeviceInfo().linuxInfo);
     } on PlatformException {
       _deviceDataLocal = <String, dynamic>{
         'Error:': 'Failed to get platform version.'
